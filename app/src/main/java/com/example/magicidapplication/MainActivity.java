@@ -2,8 +2,10 @@ package com.example.magicidapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,9 +59,20 @@ public class MainActivity extends AppCompatActivity {
                         + getString(R.string.gender) + sGender + "\n"
                         + getString(R.string.nationality) + sNationality);
 
+                hideSoftKeyBoard();
+
                 tvResults.setVisibility(View.VISIBLE);
+
             }
         });
+    }
 
+    public void hideSoftKeyBoard() {
+        try {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
+        }
     }
 }
